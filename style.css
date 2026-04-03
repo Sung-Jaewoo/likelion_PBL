@@ -1,0 +1,155 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #222;
+}
+
+.page {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.intro-summary,
+.intro-detail {
+  width: 100%;
+}
+
+.summary-card,
+.detail-card {
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.summary-card {
+  width: 320px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profile-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.summary-text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.name {
+  margin: 0;
+  font-size: 32px;
+}
+
+.part {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #2d5bff;
+}
+
+.one-line-intro {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.detail-card {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.detail-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-name {
+  margin: 0;
+  font-size: 32px;
+}
+
+.detail-part {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #2d5bff;
+}
+
+.club-name {
+  margin: 0;
+  font-size: 18px;
+  color: #666666;
+}
+
+.detail-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detail-section h3 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.detail-section p,
+.skill-list,
+.contact-list {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.skill-list,
+.contact-list {
+  padding-left: 22px;
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 24px 16px;
+  }
+
+  .summary-card {
+    width: 100%;
+  }
+
+  .name,
+  .detail-name {
+    font-size: 28px;
+  }
+
+  .part,
+  .detail-part {
+    font-size: 18px;
+  }
+
+  .one-line-intro,
+  .detail-section p,
+  .skill-list,
+  .contact-list,
+  .club-name {
+    font-size: 16px;
+  }
+}
