@@ -13,6 +13,11 @@
 
 ## 3. 결과 이미지(스크린샷)
 - <img width="1740" height="15838" alt="2주차_PBL 결과" src="https://github.com/user-attachments/assets/6935ba6b-6246-4ff5-afa8-7f3d70c658ce" />
+-<img width="1511" height="1482" alt="스크린샷 2026-04-11 231749" src="https://github.com/user-attachments/assets/967ca160-b3fd-48f1-98a2-297a7225ac38" />
+-<img width="776" height="1289" alt="스크린샷 2026-04-11 231817" src="https://github.com/user-attachments/assets/b8918015-d303-4d05-b8d3-38210ea42646" />
+
+
+
 
 ## 4. 느낀 점
 처음에는 그냥 카드 몇 개를 배치하는 단순한 작업이라고 생각했는데, 실제로 해보니까 생각보다 고려해야 할 요소가 많았다. 특히 같은 화면이라도 디바이스에 따라 다르게 보여야 한다는 점이 처음에는 잘 와닿지 않았는데, 직접 `@media query`를 적용해보면서 그 중요성을 체감할 수 있었다.  
