@@ -1,190 +1,266 @@
-const API_URL = "https://randomuser.me/api/?nat=us,gb,ca,au";
+const summaryList = document.getElementById("summaryList");
+const detailList = document.getElementById("detailList");
+const statusText = document.getElementById("statusText");
 
-const loadBtn = document.querySelector("#loadBtn");
-const loadFiveBtn = document.querySelector("#loadFiveBtn");
-const loadAllBtn = document.querySelector("#loadAllBtn");
-const lionForm = document.querySelector("#lionForm");
+const nameInput = document.getElementById("name");
+const partInput = document.getElementById("part");
+const techInput = document.getElementById("tech");
+const introInput = document.getElementById("intro");
+const detailIntroInput = document.getElementById("detailIntro");
+const emailInput = document.getElementById("email");
+const phoneInput = document.getElementById("phone");
+const websiteInput = document.getElementById("website");
 
-const nameInput = document.querySelector("#nameInput");
-const partInput = document.querySelector("#partInput");
-const emailInput = document.querySelector("#emailInput");
+let lions = [
+  {
+    name: "김아기사자",
+    part: "Frontend",
+    tech: "Java",
+    intro: "굉장한 프론트엔트 개발자가 되기를 준비중입니다.",
+    detailIntro: "HTML과 CSS를 처음 배우면서 화면이 어떻게 구성되는지에 흥미를 느꼈습니다. 기본기를 탄탄히 다지는 개발자가 되고 싶습니다.",
+    email: "lion1@example.com",
+    phone: "010-0000-0000",
+    website: "https://example.com",
+    image: "../2주차/images/lion_yell.jpeg"
+  },
+  {
+    name: "성아기사자",
+    part: "Frontend",
+    tech: "HTML / CSS",
+    intro: "웹 개발에 관심이 많습니다.",
+    detailIntro: "웹 설계를 기초부터 차근차근 배우며, 훌륭한 개발자로의 도약을 준비하고 있습니다.",
+    email: "lion2@example.com",
+    phone: "010-0000-0000",
+    website: "https://frontend.dev",
+    image: "../2주차/images/maeng_soo.jpeg"
+  },
+  {
+    name: "오아기사자",
+    part: "Design",
+    tech: "Figma",
+    intro: "어떻게 하면 뛰어난 사용자 맞춤형 디자인을 만들지 꾸준히 고민합니다.",
+    detailIntro: "사용자의 시선과 흐름을 고려한 인터페이스를 만드는 데 관심이 있습니다.",
+    email: "lion3@example.com",
+    phone: "010-0000-0000",
+    website: "https://design.me",
+    image: "../2주차/images/star_paint.jpeg"
+  },
+  {
+    name: "최아기사자",
+    part: "Frontend",
+    tech: "TypeScript",
+    intro: "컴포넌트 단위 설계에 흥미가 있습니다.",
+    detailIntro: "아직 초보이지만 좋은 서비스를 만드는 개발자가 되고 싶습니다.",
+    email: "lion4@example.com",
+    phone: "010-0000-0000",
+    website: "https://frontend.dev",
+    image: "../2주차/images/baem.jpeg"
+  },
+  {
+    name: "정아기사자",
+    part: "Backend",
+    tech: "Spring",
+    intro: "데이터 흐름을 명확히 하는 개발을 지향합니다.",
+    detailIntro: "데이터 구조와 데이터 처리에 관심이 많습니다. 데이터를 잘 다루는 개발자로 성장하고 싶습니다.",
+    email: "lion5@example.com",
+    phone: "010-0000-0000",
+    website: "https://backend.dev",
+    image: "../2주차/images/hippo.jpeg"
+  },
+  {
+    name: "박아기사자",
+    part: "Design",
+    tech: "Design System",
+    intro: "디자인 시스템에 관심이 많습니다.",
+    detailIntro: "사람들이 편하게 이용할 수 있는 웹 디자인을 항상 고민하고 있습니다.",
+    email: "lion6@example.com",
+    phone: "010-0000-0000",
+    website: "https://design.dev",
+    image: "../2주차/images/monarija.jpeg"
+  },
+  {
+    name: "황아기사자",
+    part: "Backend",
+    tech: "Node.js",
+    intro: "실용적인 기능을 구현하는데 집중하고 있습니다.",
+    detailIntro: "좋은 서비스 구조를 구축하는 것을 공부하고 있습니다.",
+    email: "lion7@example.com",
+    phone: "010-0000-0000",
+    website: "https://backend.dev",
+    image: "../2주차/images/jerry.jpeg"
+  },
+  {
+    name: "한아기사자",
+    part: "Frontend",
+    tech: "CSS Grid",
+    intro: "정돈된 레이아웃 구성을 만드는 데 노력하고 있습니다.",
+    detailIntro: "웹 설계는 아직 서툴지만, 열심히 공부하고 있습니다.",
+    email: "lion8@example.com",
+    phone: "010-0000-0000",
+    website: "https://frontend.dev",
+    image: "../2주차/images/tom.jpeg"
+  },
+  {
+    name: "송아기사자",
+    part: "Design",
+    tech: "Typography",
+    intro: "사용자 접근성이 좋은 화면을 만드는 것을 공부하고 있습니다.",
+    detailIntro: "디자인을 배우며 사용자에게 편한 화면을 고민하고 있습니다.",
+    email: "lion9@example.com",
+    phone: "010-0000-0000",
+    website: "https://design.dev",
+    image: "../2주차/images/in_a_man.jpeg"
+  }
+];
 
-const partFilter = document.querySelector("#partFilter");
-const sortSelect = document.querySelector("#sortSelect");
-const searchInput = document.querySelector("#searchInput");
+let currentFilter = "all";
+let currentSort = "none";
+let currentSearch = "";
 
-const statusText = document.querySelector("#statusText");
-const cardList = document.querySelector("#cardList");
+function getVisibleData() {
+  let data = [...lions];
 
-let lions = [];
+  if (currentFilter !== "all") {
+    data = data.filter((lion) => lion.part === currentFilter);
+  }
 
-function getRandomPart() {
-  const parts = ["Frontend", "Backend", "Design"];
-  const randomIndex = Math.floor(Math.random() * parts.length);
-  return parts[randomIndex];
+  if (currentSearch.trim() !== "") {
+    data = data.filter((lion) => lion.name.includes(currentSearch.trim()));
+  }
+
+  if (currentSort === "asc") {
+    data.sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  if (currentSort === "desc") {
+    data.sort((a, b) => b.name.localeCompare(a.name));
+  }
+
+  return data;
 }
 
-function setStatus(message, type) {
-  statusText.textContent = message;
+function render() {
+  const data = getVisibleData();
 
-  statusText.classList.remove("loading", "success", "error");
+  statusText.textContent = `총 ${data.length}명`;
 
-  if (type) {
-    statusText.classList.add(type);
-  }
-}
-
-function convertUserToLion(user) {
-  return {
-    id: crypto.randomUUID(),
-    name: `${user.name.first} ${user.name.last}`,
-    part: getRandomPart(),
-    email: user.email,
-    image: user.picture.large
-  };
-}
-
-async function fetchRandomUsers(count) {
-  const response = await fetch(`${API_URL}&results=${count}`);
-
-  if (!response.ok) {
-    throw new Error("API 요청에 실패했습니다.");
-  }
-
-  const data = await response.json();
-
-  return data.results.map(function (user) {
-    return convertUserToLion(user);
-  });
-}
-
-function getFilteredLions() {
-  let filteredLions = [...lions];
-
-  const selectedPart = partFilter.value;
-  const keyword = searchInput.value.trim().toLowerCase();
-  const sortType = sortSelect.value;
-
-  if (selectedPart !== "all") {
-    filteredLions = filteredLions.filter(function (lion) {
-      return lion.part === selectedPart;
-    });
-  }
-
-  if (keyword !== "") {
-    filteredLions = filteredLions.filter(function (lion) {
-      return lion.name.toLowerCase().includes(keyword);
-    });
-  }
-
-  if (sortType === "name") {
-    filteredLions.sort(function (a, b) {
-      return a.name.localeCompare(b.name);
-    });
-  }
-
-  return filteredLions;
-}
-
-function renderLions() {
-  const filteredLions = getFilteredLions();
-
-  cardList.innerHTML = "";
-
-  if (filteredLions.length === 0) {
-    cardList.innerHTML = `
-      <div class="empty">
-        조건에 맞는 아기 사자가 없습니다.
-      </div>
-    `;
+  if (data.length === 0) {
+    summaryList.innerHTML = `<p>조건에 맞는 아기 사자가 없습니다.</p>`;
+    detailList.innerHTML = "";
     return;
   }
 
-  filteredLions.forEach(function (lion) {
-    const card = document.createElement("article");
-    card.classList.add("card");
-
-    card.innerHTML = `
-      <img src="${lion.image}" alt="${lion.name} 프로필 이미지" />
-      <div class="card-content">
-        <h3>${lion.name}</h3>
-        <p>${lion.email}</p>
-        <span class="badge">${lion.part}</span>
+  summaryList.innerHTML = data.map((lion) => `
+    <article class="summary-card">
+      <div class="image-wrap">
+        <img src="${lion.image}" alt="${lion.name} 프로필 이미지" />
+        <span class="badge">${lion.tech}</span>
       </div>
-    `;
+      <div class="summary-content">
+        <h3>${lion.name}</h3>
+        <p class="part">${lion.part}</p>
+        <p class="one-line">${lion.intro}</p>
+      </div>
+    </article>
+  `).join("");
 
-    cardList.appendChild(card);
-  });
+  detailList.innerHTML = data.map((lion) => `
+    <article class="detail-card">
+      <h3>${lion.name}</h3>
+      <p class="part">${lion.part}</p>
+      <section>
+        <h4>자기소개</h4>
+        <p>${lion.detailIntro}</p>
+      </section>
+      <section>
+        <h4>연락처</h4>
+        <ul>
+          <li>이메일: ${lion.email}</li>
+          <li>전화번호: ${lion.phone}</li>
+          <li>웹사이트: <a href="${lion.website}" target="_blank">${lion.website}</a></li>
+        </ul>
+      </section>
+    </article>
+  `).join("");
 }
 
-async function addRandomLions(count) {
+async function fetchUsers(count) {
+  statusText.textContent = "불러오는 중...";
   try {
-    setStatus("데이터를 불러오는 중입니다...", "loading");
+    const response = await fetch(`https://randomuser.me/api/?results=${count}`);
+    const json = await response.json();
 
-    const newLions = await fetchRandomUsers(count);
+    return json.results.map((user) => {
+      const parts = ["Frontend", "Backend", "Design"];
+      const techs = ["JavaScript", "React", "HTML / CSS", "Node.js", "Figma"];
+      const randomPart = parts[Math.floor(Math.random() * parts.length)];
+      const randomTech = techs[Math.floor(Math.random() * techs.length)];
 
-    lions = [...lions, ...newLions];
-
-    renderLions();
-
-    setStatus(`${count}명의 아기 사자를 추가했습니다.`, "success");
+      return {
+        name: `${user.name.first}기사자`,
+        part: randomPart,
+        tech: randomTech,
+        intro: "외부 API에서 불러온 아기 사자입니다.",
+        detailIntro: "fetch를 사용해 외부 데이터를 불러오고 화면에 동적으로 렌더링했습니다.",
+        email: user.email,
+        phone: user.phone,
+        website: "https://example.com",
+        image: user.picture.large
+      };
+    });
   } catch (error) {
-    setStatus("데이터를 불러오지 못했습니다. 다시 시도해주세요.", "error");
+    statusText.textContent = "데이터를 불러오지 못했습니다. 다시 시도해주세요.";
+    return [];
   }
 }
 
-async function resetRandomLions() {
-  try {
-    setStatus("전체 명단을 새로 불러오는 중입니다...", "loading");
-
-    const newLions = await fetchRandomUsers(9);
-
-    lions = newLions;
-
-    renderLions();
-
-    setStatus("전체 명단을 새로고침했습니다.", "success");
-  } catch (error) {
-    setStatus("새로고침에 실패했습니다. 다시 시도해주세요.", "error");
-  }
-}
-
-function addManualLion(event) {
-  event.preventDefault();
-
+document.getElementById("addFormBtn").addEventListener("click", function () {
   const newLion = {
-    id: crypto.randomUUID(),
-    name: nameInput.value.trim(),
+    name: nameInput.value || "새아기사자",
     part: partInput.value,
-    email: emailInput.value.trim(),
-    image: "https://randomuser.me/api/portraits/lego/1.jpg"
+    tech: techInput.value || "JS",
+    intro: introInput.value || "새롭게 추가된 아기 사자입니다.",
+    detailIntro: detailIntroInput.value || "상세 자기소개가 아직 없습니다.",
+    email: emailInput.value || "lion@example.com",
+    phone: phoneInput.value || "010-0000-0000",
+    website: websiteInput.value || "https://example.com",
+    image: "../2주차/images/baem.jpeg"
   };
 
-  lions = [...lions, newLion];
-
-  lionForm.reset();
-
-  renderLions();
-
-  setStatus("직접 입력한 아기 사자가 추가되었습니다.", "success");
-}
-
-loadBtn.addEventListener("click", function () {
-  addRandomLions(1);
+  lions.push(newLion);
+  render();
 });
 
-loadFiveBtn.addEventListener("click", function () {
-  addRandomLions(5);
+document.getElementById("add1").addEventListener("click", async function () {
+  const newUsers = await fetchUsers(1);
+  lions.push(...newUsers);
+  render();
 });
 
-loadAllBtn.addEventListener("click", function () {
-  resetRandomLions();
+document.getElementById("add5").addEventListener("click", async function () {
+  const newUsers = await fetchUsers(5);
+  lions.push(...newUsers);
+  render();
 });
 
-lionForm.addEventListener("submit", addManualLion);
+document.getElementById("reset").addEventListener("click", async function () {
+  lions = await fetchUsers(9);
+  render();
+});
 
-partFilter.addEventListener("change", renderLions);
-sortSelect.addEventListener("change", renderLions);
-searchInput.addEventListener("input", renderLions);
+document.getElementById("filter").addEventListener("change", function (event) {
+  currentFilter = event.target.value;
+  render();
+});
 
-renderLions();
+document.getElementById("sort").addEventListener("change", function (event) {
+  currentSort = event.target.value;
+  render();
+});
+
+document.getElementById("search").addEventListener("input", function (event) {
+  currentSearch = event.target.value;
+  render();
+});
+
+render();
