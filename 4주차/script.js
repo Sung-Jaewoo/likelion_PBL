@@ -11,6 +11,10 @@ const emailInput = document.getElementById("email");
 const phoneInput = document.getElementById("phone");
 const websiteInput = document.getElementById("website");
 
+let currentFilter = "all";
+let currentSort = "none";
+let currentSearch = "";
+
 let lions = [
   {
     name: "김아기사자",
@@ -113,27 +117,31 @@ let lions = [
   }
 ];
 
-let currentFilter = "all";
-let currentSort = "none";
-let currentSearch = "";
-
 function getVisibleData() {
   let data = [...lions];
 
   if (currentFilter !== "all") {
-    data = data.filter((lion) => lion.part === currentFilter);
+    data = data.filter(function (lion) {
+      return lion.part === currentFilter;
+    });
   }
 
   if (currentSearch.trim() !== "") {
-    data = data.filter((lion) => lion.name.includes(currentSearch.trim()));
+    data = data.filter(function (lion) {
+      return lion.name.includes(currentSearch.trim());
+    });
   }
 
   if (currentSort === "asc") {
-    data.sort((a, b) => a.name.localeCompare(b.name));
+    data.sort(function (a, b) {
+      return a.name.localeCompare(b.name);
+    });
   }
 
   if (currentSort === "desc") {
-    data.sort((a, b) => b.name.localeCompare(a.name));
+    data.sort(function (a, b) {
+      return b.name.localeCompare(a.name);
+    });
   }
 
   return data;
@@ -150,49 +158,57 @@ function render() {
     return;
   }
 
-  summaryList.innerHTML = data.map((lion) => `
-    <article class="summary-card">
-      <div class="image-wrap">
-        <img src="${lion.image}" alt="${lion.name} 프로필 이미지" />
-        <span class="badge">${lion.tech}</span>
-      </div>
-      <div class="summary-content">
+  summaryList.innerHTML = data.map(function (lion) {
+    return `
+      <article class="summary-card">
+        <div class="image-wrap">
+          <img src="${lion.image}" alt="${lion.name} 프로필 이미지" />
+          <span class="badge">${lion.tech}</span>
+        </div>
+        <div class="summary-content">
+          <h3>${lion.name}</h3>
+          <p class="part">${lion.part}</p>
+          <p class="one-line">${lion.intro}</p>
+        </div>
+      </article>
+    `;
+  }).join("");
+
+  detailList.innerHTML = data.map(function (lion) {
+    return `
+      <article class="detail-card">
         <h3>${lion.name}</h3>
         <p class="part">${lion.part}</p>
-        <p class="one-line">${lion.intro}</p>
-      </div>
-    </article>
-  `).join("");
 
-  detailList.innerHTML = data.map((lion) => `
-    <article class="detail-card">
-      <h3>${lion.name}</h3>
-      <p class="part">${lion.part}</p>
-      <section>
-        <h4>자기소개</h4>
-        <p>${lion.detailIntro}</p>
-      </section>
-      <section>
-        <h4>연락처</h4>
-        <ul>
-          <li>이메일: ${lion.email}</li>
-          <li>전화번호: ${lion.phone}</li>
-          <li>웹사이트: <a href="${lion.website}" target="_blank">${lion.website}</a></li>
-        </ul>
-      </section>
-    </article>
-  `).join("");
+        <section>
+          <h4>자기소개</h4>
+          <p>${lion.detailIntro}</p>
+        </section>
+
+        <section>
+          <h4>연락처</h4>
+          <ul>
+            <li>이메일: ${lion.email}</li>
+            <li>전화번호: ${lion.phone}</li>
+            <li>웹사이트: <a href="${lion.website}" target="_blank">${lion.website}</a></li>
+          </ul>
+        </section>
+      </article>
+    `;
+  }).join("");
 }
 
 async function fetchUsers(count) {
   statusText.textContent = "불러오는 중...";
+
   try {
     const response = await fetch(`https://randomuser.me/api/?results=${count}`);
     const json = await response.json();
 
-    return json.results.map((user) => {
+    return json.results.map(function (user) {
       const parts = ["Frontend", "Backend", "Design"];
       const techs = ["JavaScript", "React", "HTML / CSS", "Node.js", "Figma"];
+
       const randomPart = parts[Math.floor(Math.random() * parts.length)];
       const randomTech = techs[Math.floor(Math.random() * techs.length)];
 
@@ -231,34 +247,39 @@ document.getElementById("addFormBtn").addEventListener("click", function () {
   render();
 });
 
-document.getElementById("add1").addEventListener("click", async function () {
+document.getElementById("add1Btn").addEventListener("click", async function () {
   const newUsers = await fetchUsers(1);
   lions.push(...newUsers);
   render();
 });
 
-document.getElementById("add5").addEventListener("click", async function () {
+document.getElementById("add5Btn").addEventListener("click", async function () {
   const newUsers = await fetchUsers(5);
   lions.push(...newUsers);
   render();
 });
 
-document.getElementById("reset").addEventListener("click", async function () {
-  lions = await fetchUsers(9);
+document.getElementById("resetBtn").addEventListener("click", async function () {
+  const newUsers = await fetchUsers(9);
+
+  if (newUsers.length > 0) {
+    lions = newUsers;
+  }
+
   render();
 });
 
-document.getElementById("filter").addEventListener("change", function (event) {
+document.getElementById("filterSelect").addEventListener("change", function (event) {
   currentFilter = event.target.value;
   render();
 });
 
-document.getElementById("sort").addEventListener("change", function (event) {
+document.getElementById("sortSelect").addEventListener("change", function (event) {
   currentSort = event.target.value;
   render();
 });
 
-document.getElementById("search").addEventListener("input", function (event) {
+document.getElementById("searchInput").addEventListener("input", function (event) {
   currentSearch = event.target.value;
   render();
 });

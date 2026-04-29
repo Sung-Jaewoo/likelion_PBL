@@ -20,7 +20,7 @@ body {
 
 .page-header h1 {
   margin: 0 0 10px;
-  font-size: 28px;
+  font-size: 32px;
 }
 
 .page-header p {
@@ -35,6 +35,10 @@ body {
   margin-bottom: 40px;
   border-radius: 18px;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+}
+
+.form-section h2 {
+  margin-top: 0;
 }
 
 .form-grid {
@@ -59,7 +63,7 @@ textarea {
   width: 100%;
   padding: 13px 14px;
   border: 1px solid #aaa;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 15px;
 }
 
@@ -102,6 +106,12 @@ textarea {
   background: #eeeeee;
   border-radius: 28px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.status-text {
+  margin: 0 0 16px;
+  font-weight: 800;
+  color: #555;
 }
 
 .card-grid {
@@ -181,10 +191,12 @@ textarea {
   background: #fafafa;
 }
 
-.status-text {
-  margin-bottom: 16px;
-  font-weight: 800;
-  color: #555;
+.detail-card h3 {
+  margin-top: 0;
+}
+
+.detail-card a {
+  color: #5b6cff;
 }
 
 @media (max-width: 600px) {
@@ -225,5 +237,10 @@ textarea {
 
   .one-line {
     font-size: 18px;
+  }
+
+  .badge {
+    font-size: 16px;
+    padding: 9px 16px;
   }
 }
