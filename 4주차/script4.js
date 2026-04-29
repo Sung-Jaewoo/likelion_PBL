@@ -12,7 +12,7 @@ const phoneInput = document.getElementById("phone");
 const websiteInput = document.getElementById("website");
 
 let currentFilter = "all";
-let currentSort = "none";
+let currentSort = "latest";
 let currentSearch = "";
 
 let lions = [
@@ -152,7 +152,10 @@ function render() {
   const data = getVisibleData();
 
   countText.textContent = `총 ${lions.length}명`;
-  statusText.textContent = `현재 표시: ${data.length}명`;
+
+  if (statusText.textContent === "") {
+    statusText.textContent = "준비 완료";
+  }
 
   if (data.length === 0) {
     summaryList.innerHTML = `<p>조건에 맞는 아기 사자가 없습니다.</p>`;
@@ -209,6 +212,8 @@ async function fetchUsers(count) {
 
     const json = await response.json();
 
+    statusText.textContent = "불러오기 성공";
+
     return json.results.map((user) => {
       const parts = ["Frontend", "Backend", "Design"];
       const techs = ["JavaScript", "React", "HTML / CSS", "Node.js", "Figma"];
@@ -227,7 +232,7 @@ async function fetchUsers(count) {
       };
     });
   } catch (error) {
-    statusText.textContent = "데이터를 불러오지 못했습니다.";
+    statusText.textContent = "불러오기 실패";
     return [];
   }
 }
@@ -247,11 +252,16 @@ document.getElementById("addFormBtn").addEventListener("click", () => {
   };
 
   lions.push(newLion);
+  statusText.textContent = "직접 입력 데이터 추가 완료";
   render();
 });
 
 document.getElementById("deleteBtn").addEventListener("click", () => {
-  lions.pop();
+  if (lions.length > 0) {
+    lions.pop();
+  }
+
+  statusText.textContent = "마지막 항목 삭제 완료";
   render();
 });
 

@@ -10,7 +10,8 @@ body {
 }
 
 .page {
-  width: 1100px;
+  width: 90%;
+  max-width: 1100px;
   margin: 40px auto;
 }
 
@@ -24,27 +25,90 @@ body {
 }
 
 .page-header p {
-  margin: 0;
   color: #666;
 }
 
+/* 4주차 기능 영역은 유지 */
+.control-panel {
+  background: #f5f6f9;
+  border: 1px solid #e2e4e8;
+  border-radius: 28px;
+  padding: 34px 42px;
+  margin-bottom: 36px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.control-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 0;
+}
+
+.control-row + .control-row {
+  border-top: 1px solid #e0e0e0;
+}
+
+.control-row button {
+  padding: 14px 24px;
+  border: 1px solid #dddddd;
+  border-radius: 12px;
+  background: white;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+#countText,
+#statusText {
+  margin-left: 10px;
+  color: #666;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.filter-row label {
+  margin: 0;
+  color: #666;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.filter-row select,
+.filter-row input {
+  width: 220px;
+  padding: 14px 18px;
+  border: 1px solid #dddddd;
+  border-radius: 12px;
+  background: white;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.filter-row input {
+  width: 260px;
+}
+
+/* 여기부터 3주차 레이아웃 */
 .form-section,
+.summary-section,
 .detail-section {
   background: white;
   padding: 28px;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
   border-radius: 18px;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
 .form-section h2 {
   margin-top: 0;
+  font-size: 26px;
 }
 
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 28px 24px;
+  gap: 22px 24px;
 }
 
 .wide {
@@ -54,6 +118,7 @@ body {
 label {
   display: block;
   margin-bottom: 8px;
+  color: #555;
   font-weight: 800;
 }
 
@@ -61,63 +126,57 @@ input,
 select,
 textarea {
   width: 100%;
-  padding: 13px 14px;
-  border: 1px solid #aaa;
-  border-radius: 8px;
-  font-size: 15px;
+  padding: 15px 16px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 16px;
 }
 
 textarea {
-  height: 120px;
+  height: 110px;
   resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid #b8baff;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+#submitBtn {
+  background: #111;
+  color: white;
+}
+
+#cancelBtn {
+  background: white;
 }
 
 .section-title {
   display: inline-block;
-  margin: 0 0 24px;
+  margin: 0 0 20px;
   padding: 8px 14px;
   background: #fff0d8;
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 900;
 }
 
-.control-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 22px;
-}
-
-.control-bar button,
-.control-bar select,
-.control-bar input {
-  width: auto;
-  padding: 9px 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background: white;
-  font-weight: 700;
-}
-
 .summary-section {
-  width: 100%;
-  padding: 28px;
-  margin-bottom: 45px;
   background: #eeeeee;
-  border-radius: 28px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-}
-
-.status-text {
-  margin: 0 0 16px;
-  font-weight: 800;
-  color: #555;
+  border-radius: 26px;
 }
 
 .card-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 26px;
+  gap: 22px;
 }
 
 .summary-card {
@@ -133,8 +192,7 @@ textarea {
 
 .image-wrap {
   position: relative;
-  width: 100%;
-  height: 210px;
+  height: 190px;
   overflow: hidden;
 }
 
@@ -142,41 +200,39 @@ textarea {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 
 .badge {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  padding: 7px 13px;
-  border-radius: 999px;
+  top: 10px;
+  right: 10px;
   background: white;
+  padding: 6px 11px;
+  border-radius: 999px;
   font-size: 12px;
-  font-weight: 900;
+  font-weight: bold;
 }
 
 .summary-content {
-  min-height: 150px;
-  padding: 18px;
+  padding: 16px;
 }
 
 .summary-content h3 {
-  margin: 0 0 12px;
-  font-size: 20px;
+  margin: 0 0 10px;
+  font-size: 18px;
 }
 
 .part {
-  margin: 0 0 12px;
+  margin: 0 0 10px;
   color: #5b6cff;
-  font-weight: 900;
+  font-weight: bold;
 }
 
 .one-line {
   margin: 0;
   color: #555;
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .detail-list {
@@ -185,10 +241,10 @@ textarea {
 }
 
 .detail-card {
-  padding: 22px;
+  background: #fafafa;
   border: 1px solid #ddd;
   border-radius: 14px;
-  background: #fafafa;
+  padding: 22px;
 }
 
 .detail-card h3 {
@@ -206,6 +262,26 @@ textarea {
     padding: 20px;
   }
 
+  .control-panel {
+    padding: 22px;
+    border-radius: 22px;
+  }
+
+  .control-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-row select,
+  .filter-row input {
+    width: 100%;
+  }
+
+  #countText,
+  #statusText {
+    margin-left: 0;
+  }
+
   .form-grid {
     grid-template-columns: 1fr;
   }
@@ -216,31 +292,9 @@ textarea {
 
   .card-grid {
     grid-template-columns: 1fr;
-    gap: 28px;
-  }
-
-  .summary-section {
-    padding: 22px;
   }
 
   .image-wrap {
     height: 260px;
-  }
-
-  .summary-content h3 {
-    font-size: 24px;
-  }
-
-  .part {
-    font-size: 20px;
-  }
-
-  .one-line {
-    font-size: 18px;
-  }
-
-  .badge {
-    font-size: 16px;
-    padding: 9px 16px;
   }
 }

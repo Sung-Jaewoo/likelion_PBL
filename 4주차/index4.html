@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>아기 사자 자기소개</title>
-  <link rel="stylesheet" href="style3.css" />
+  <title>아기 사자 자기소개 카드</title>
+  <link rel="stylesheet" href="./style4.css" />
 </head>
 <body>
   <main class="page">
@@ -13,10 +13,39 @@
       <p>요약 카드와 상세 자기소개를 한 화면에서 확인할 수 있습니다.</p>
     </header>
 
-    <section class="control-section">
-      <button id="addBtn">아기 사자 추가</button>
-      <button id="deleteBtn">마지막 아기 사자 삭제</button>
-      <span id="countText">총 0명</span>
+    <section class="control-panel">
+      <div class="control-row">
+        <button id="addFormBtn">아기 사자 추가</button>
+        <button id="deleteBtn">마지막 아기 사자 삭제</button>
+        <span id="countText">총 0명</span>
+      </div>
+
+      <div class="control-row">
+        <button id="add1Btn">랜덤 1명 추가</button>
+        <button id="add5Btn">랜덤 5명 추가</button>
+        <button id="resetBtn">전체 새로고침</button>
+        <span id="statusText">준비 완료</span>
+      </div>
+
+      <div class="control-row filter-row">
+        <label for="filterSelect">파트</label>
+        <select id="filterSelect">
+          <option value="all">전체</option>
+          <option value="Frontend">Frontend</option>
+          <option value="Backend">Backend</option>
+          <option value="Design">Design</option>
+        </select>
+
+        <label for="sortSelect">정렬</label>
+        <select id="sortSelect">
+          <option value="latest">최신추가순</option>
+          <option value="asc">이름 오름차순</option>
+          <option value="desc">이름 내림차순</option>
+        </select>
+
+        <label for="searchInput">검색</label>
+        <input id="searchInput" type="text" placeholder="이름으로 검색" />
+      </div>
     </section>
 
     <section class="form-section">
@@ -25,74 +54,63 @@
       <div class="form-grid">
         <div>
           <label for="name">이름</label>
-          <input id="name" type="text" placeholder="이름" />
-          <p id="nameError" class="error"></p>
+          <input id="name" type="text" placeholder="예: 홍아기사자" />
         </div>
 
         <div>
-          <label for="part">소속 파트</label>
+          <label for="part">파트</label>
           <select id="part">
             <option value="">파트를 선택하세요</option>
             <option value="Frontend">Frontend</option>
             <option value="Backend">Backend</option>
             <option value="Design">Design</option>
           </select>
-          <p id="partError" class="error"></p>
-        </div>
-
-        <div>
-          <label for="grade">학년</label>
-          <input id="grade" type="number" placeholder="학년" />
-          <p id="gradeError" class="error"></p>
-        </div>
-
-        <div>
-          <label for="intro">자기소개</label>
-          <input id="intro" type="text" placeholder="간단한 자기소개" />
-          <p id="introError" class="error"></p>
-        </div>
-
-        <div>
-          <label for="email">이메일</label>
-          <input id="email" type="email" placeholder="example@email.com" />
-          <p id="emailError" class="error"></p>
-        </div>
-
-        <div>
-          <label for="phone">전화번호</label>
-          <input id="phone" type="text" placeholder="010-0000-0000" />
-          <p id="phoneError" class="error"></p>
         </div>
 
         <div class="wide">
-          <label for="website">웹사이트</label>
-          <input id="website" type="url" placeholder="https://example.com" />
-          <p id="websiteError" class="error"></p>
+          <label for="tech">관심 기술 (쉼표로 구분)</label>
+          <input id="tech" type="text" placeholder="예: JavaScript, React, HTML/CSS" />
         </div>
+
+        <div class="wide">
+          <label for="intro">한 줄 소개 (요약 카드)</label>
+          <input id="intro" type="text" placeholder="예: 3주차 DOM 조작 연습 중!" />
+        </div>
+
+        <div class="wide">
+          <label for="detailIntro">자기소개 (상세 카드)</label>
+          <textarea id="detailIntro" placeholder="예: HTML/CSS로 구조를 만들고, JS로 데이터를 바꾸면 화면이 바뀌는 경험을 하고 있습니다."></textarea>
+        </div>
+
+        <div>
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="예: lion@example.com" />
+        </div>
+
+        <div>
+          <label for="phone">Phone</label>
+          <input id="phone" type="text" placeholder="예: 010-1234-5678" />
+        </div>
+
+        <div class="wide">
+          <label for="website">Website</label>
+          <input id="website" type="url" placeholder="예: https://example.com" />
+        </div>
+
+        <div class="wide">
+          <label for="comment">한 마디</label>
+          <input id="comment" type="text" placeholder="예: 데이터 바꾸면 화면도 바뀐다!" />
+        </div>
+      </div>
+
+      <div class="form-buttons">
+        <button id="submitBtn">추가하기</button>
+        <button id="cancelBtn">취소</button>
       </div>
     </section>
 
     <h2 class="section-title">아기 사자 카드 목록 영역</h2>
-    <div style="margin-bottom:20px;">
-  <button id="add1">랜덤 1명 추가</button>
-  <button id="add5">랜덤 5명 추가</button>
-  <button id="reset">전체 새로고침</button>
 
-  <select id="filter">
-    <option value="all">전체</option>
-    <option value="Frontend">Frontend</option>
-    <option value="Backend">Backend</option>
-    <option value="Design">Design</option>
-  </select>
-
-  <select id="sort">
-    <option value="none">정렬 없음</option>
-    <option value="asc">이름 오름차순</option>
-    <option value="desc">이름 내림차순</option>
-  </select>
-
-  <input id="search" placeholder="이름 검색" />
-</div>
     <section class="summary-section">
       <div id="summaryList" class="card-grid"></div>
     </section>
@@ -103,6 +121,6 @@
     </section>
   </main>
 
-  <script src="script3.js"></script>
+  <script src="./script4.js"></script>
 </body>
 </html>
