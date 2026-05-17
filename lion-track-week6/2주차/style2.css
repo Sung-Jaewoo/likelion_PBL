@@ -1,0 +1,187 @@
+/* 기본 설정 */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
+  background-color: #f3f3f3;
+  color: #222;
+  line-height: 1.5;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+.page-header {
+  margin-bottom: 40px;
+}
+
+.page-header h1 {
+  margin: 0 0 10px;
+  font-size: 2rem;
+}
+
+.page-header p {
+  margin: 0;
+  color: #666;
+}
+
+/* 공통 섹션 */
+.summary-section,
+.detail-section {
+  margin-bottom: 56px;
+}
+
+.summary-section h2,
+.detail-section h2 {
+  display: inline-block;
+  margin: 0 0 24px;
+  padding: 4px 8px;
+  font-size: 1.8rem;
+  background-color: #fff1db;
+}
+
+/* 요약 카드 그리드 */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  padding: 28px;
+  background-color: #ededed;
+  border: 1px solid #d8d8d8;
+  border-radius: 24px;
+}
+
+/* 태블릿 */
+@media (min-width: 768px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 데스크톱 */
+@media (min-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.summary-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* 내 카드 강조 */
+.my-card {
+  border: 2px solid #4f6dff;
+  box-shadow: 0 8px 18px rgba(79, 109, 255, 0.18);
+  transform: translateY(-4px);
+}
+
+.image-wrap {
+  position: relative;
+}
+
+.image-wrap img {
+  height: 240px;
+  object-fit: cover;
+}
+
+/* 배지 */
+.badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.95);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #444;
+}
+
+.summary-content {
+  padding: 18px 16px 20px;
+}
+
+.summary-content h3 {
+  margin: 0 0 8px;
+  font-size: 1.3rem;
+}
+
+.part {
+  margin: 0 0 8px;
+  font-weight: 700;
+  color: #4f6dff;
+}
+
+.one-line {
+  margin: 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+/* 상세 카드 목록 */
+.detail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 28px;
+  background-color: #ededed;
+  border: 1px solid #d8d8d8;
+  border-radius: 24px;
+}
+
+.detail-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.detail-card h3 {
+  margin: 0 0 6px;
+  font-size: 1.6rem;
+}
+
+.club {
+  margin: 0 0 20px;
+  color: #777;
+}
+
+.detail-card section {
+  margin-top: 20px;
+}
+
+.detail-card h4 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+}
+
+.detail-card p,
+.detail-card ul {
+  margin: 0;
+}
+
+.detail-card ul {
+  padding-left: 20px;
+}
+
+.detail-card li + li {
+  margin-top: 4px;
+}
