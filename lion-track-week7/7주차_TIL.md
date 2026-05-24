@@ -13,7 +13,8 @@
 - 브라우저의 뒤로가기/앞으로가기 버튼은 `popstate` 이벤트를 사용해서 현재 URL에 맞는 화면이 다시 표시되도록 처리하는 동작을 구현할 수 있음. 
 
 ### 3. 결과 이미지(스크린샷)
-![Uploading 7주차_PBL결과.png…]()
+<img width="1740" height="2758" alt="7주차_PBL결과" src="https://github.com/user-attachments/assets/fc42e064-9584-4771-a87b-5c736668f0ed" />
+
 
 
 
