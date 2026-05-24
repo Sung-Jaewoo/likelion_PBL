@@ -14,6 +14,8 @@
 
 ### 3. 결과 이미지(스크린샷)
 <img width="1740" height="2758" alt="7주차_PBL결과" src="https://github.com/user-attachments/assets/fc42e064-9584-4771-a87b-5c736668f0ed" />
+<img width="2868" height="1541" alt="image" src="https://github.com/user-attachments/assets/9701a914-70ae-48e8-ac8f-76a7e2b26146" />
+
 
 
 
