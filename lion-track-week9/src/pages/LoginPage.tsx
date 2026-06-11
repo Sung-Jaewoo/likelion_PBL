@@ -20,6 +20,11 @@ function LoginPage({
   onLogout,
   onNavigate,
 }: LoginPageProps) {
+  const handleLogout = async () => {
+    await onLogout();
+    onNavigate("/");
+  };
+
   return (
     <main className="auth-shell">
       <div className="brand-title">
@@ -34,7 +39,7 @@ function LoginPage({
           <button className="auth-submit" type="button" onClick={() => onNavigate("/")}>
             명단 보기
           </button>
-          <button className="text-button" type="button" disabled={authLoading} onClick={onLogout}>
+          <button className="text-button" type="button" disabled={authLoading} onClick={handleLogout}>
             로그아웃
           </button>
         </section>

@@ -34,27 +34,14 @@ function DetailPage({
   };
 
   return (
-    <main className="page">
-      <header className="page-header split-header">
-        <div>
-          <button className="back-button" type="button" onClick={() => onNavigate(listUrl)}>
-            목록으로 돌아가기
-          </button>
-          <h1>아기 사자 상세 프로필</h1>
-          <p>선택한 아기 사자의 자기소개와 연락처를 확인할 수 있습니다.</p>
-        </div>
-
-        <div className="account-box">
-          <span>{user?.email ?? "로그인하지 않음"}</span>
-          <button type="button" onClick={() => onNavigate("/login")}>
-            {user ? "계정 관리" : "로그인"}
-          </button>
-        </div>
-      </header>
+    <main className="app-shell">
+      <button className="back-button" type="button" onClick={() => onNavigate(listUrl)}>
+        목록으로 돌아가기
+      </button>
 
       <section className="detail-section">
         {isLoading && <p className="empty-text">데이터를 불러오는 중입니다.</p>}
-        {errorMessage && <p className="error-text">{errorMessage}</p>}
+        {errorMessage && <p className="form-error">{errorMessage}</p>}
 
         {!isLoading && selectedLion && (
           <>

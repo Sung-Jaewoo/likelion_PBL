@@ -433,3 +433,230 @@ textarea:focus {
     height: 260px;
   }
 }
+
+.auth-shell,
+.app-shell {
+  width: min(88vw, 980px);
+  min-height: 520px;
+  margin: 56px auto;
+  padding: 42px 76px;
+  background: #f3f5f9;
+  border: 1px solid #dfe3ea;
+  border-radius: 24px;
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.16);
+}
+
+.auth-shell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-title {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.brand-title h1 {
+  margin: 0;
+  color: #5b6cff;
+  font-size: 28px;
+}
+
+.brand-title p {
+  margin: 8px 0 0;
+  color: #555;
+  font-size: 13px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 300px;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+}
+
+.auth-card h2 {
+  margin-bottom: 22px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.auth-card label {
+  margin-bottom: 6px;
+  font-size: 11px;
+}
+
+.auth-card input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.auth-submit {
+  width: fit-content;
+  margin: 16px auto 0;
+  padding: 9px 16px;
+  border-radius: 8px;
+  background: white;
+  color: #111;
+  font-size: 12px;
+}
+
+.auth-switch {
+  margin: 18px 0 0;
+  color: #777;
+  text-align: center;
+  font-size: 12px;
+}
+
+.auth-switch button,
+.text-button,
+.login-notice button {
+  border: 0;
+  padding: 0;
+  color: #5b6cff;
+  background: transparent;
+  font-size: inherit;
+}
+
+.form-error {
+  margin: 8px 0 0;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: #fde8e8;
+  color: #d34040;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.signed-email {
+  text-align: center;
+  font-weight: 800;
+}
+
+.app-topbar,
+.top-account {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #dfe3ea;
+}
+
+.app-topbar span,
+.top-account span {
+  font-size: 13px;
+}
+
+.app-topbar button,
+.top-account button,
+.login-button {
+  padding: 9px 13px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.login-notice {
+  margin-bottom: 22px;
+  padding: 12px 14px;
+  border: 1px solid #cbd5ff;
+  border-radius: 6px;
+  background: #e9edff;
+  color: #5b6cff;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.app-shell .control-panel {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.app-shell .control-row {
+  gap: 12px;
+  padding: 16px 0;
+}
+
+.app-shell .control-row button {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.app-shell #countText,
+.app-shell #statusText {
+  font-size: 14px;
+}
+
+.app-shell .filter-row label {
+  font-size: 12px;
+}
+
+.app-shell .filter-row select,
+.app-shell .filter-row input {
+  width: 150px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.toast-text {
+  width: fit-content;
+  margin: 12px 0 0;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #555;
+  color: white;
+  font-size: 12px;
+}
+
+.app-shell .summary-section {
+  margin-top: 36px;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.app-shell .card-grid {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.app-shell .summary-card {
+  border-radius: 8px;
+}
+
+.app-shell .image-wrap {
+  height: 210px;
+}
+
+.app-shell .summary-content h3 {
+  font-size: 18px;
+}
+
+@media (max-width: 760px) {
+  .auth-shell,
+  .app-shell {
+    width: calc(100% - 24px);
+    min-height: auto;
+    margin: 12px auto;
+    padding: 24px 18px;
+  }
+
+  .app-shell .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .app-shell .filter-row select,
+  .app-shell .filter-row input {
+    width: 100%;
+  }
+}

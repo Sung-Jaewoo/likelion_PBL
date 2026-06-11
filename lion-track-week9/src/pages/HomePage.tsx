@@ -27,8 +27,10 @@ interface HomePageProps {
   user: User | null;
   viewOptions: ViewOptions;
   onCreate: (form: LionForm, ownerId: string) => Promise<boolean>;
+  onCreateRandom: (count: number, ownerId: string) => Promise<boolean>;
   onDelete: (lionId: string) => Promise<boolean>;
   onRefresh: () => Promise<void>;
+  onLogout: () => Promise<void>;
   onNavigate: (url: string) => void;
   onUpdateViewOption: <K extends keyof ViewOptions>(key: K, value: ViewOptions[K]) => void;
 }
@@ -42,13 +44,16 @@ function HomePage({
   user,
   viewOptions,
   onCreate,
+  onCreateRandom,
   onDelete,
   onRefresh,
+  onLogout,
   onNavigate,
   onUpdateViewOption,
 }: HomePageProps) {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [form, setForm] = useState<LionForm>(emptyForm);
+  const [notice, setNotice] = useState("");
   const { filter, sort, search } = viewOptions;
 
   const visibleLions = useMemo(() => {
@@ -76,6 +81,24 @@ function HomePage({
     form.detailIntro.trim() !== "" &&
     form.email.includes("@");
 
+  const showLoginRequired = () => {
+    setNotice("로그인이 필요합니다");
+  };
+
+  const handleLogout = async () => {
+    await onLogout();
+    setNotice("");
+  };
+
+  const handleOpenForm = () => {
+    if (!user) {
+      showLoginRequired();
+      return;
+    }
+
+    setIsFormOpen(true);
+  };
+
   const handleFormChange = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
@@ -100,44 +123,69 @@ function HomePage({
   };
 
   const handleDeleteLast = async () => {
-    if (!user || lions.length === 0) return;
+    if (!user) {
+      showLoginRequired();
+      return;
+    }
+
+    if (lions.length === 0) return;
     await onDelete(lions[0].id);
   };
 
-  return (
-    <main className="page">
-      <header className="page-header split-header">
-        <div>
-          <h1>아기 사자 자기소개</h1>
-          <p>Supabase 데이터베이스에 저장된 아기 사자 명단을 조회하고 관리합니다.</p>
-        </div>
+  const handleRandomCreate = async (count: number) => {
+    if (!user) {
+      showLoginRequired();
+      return;
+    }
 
-        <div className="account-box">
-          <span>{user?.email ?? "로그인하지 않음"}</span>
-          <button type="button" onClick={() => onNavigate("/login")}>
-            {user ? "계정 관리" : "로그인"}
+    await onCreateRandom(count, user.id);
+  };
+
+  return (
+    <main className="app-shell">
+      <header className="app-topbar">
+        {user ? (
+          <>
+            <span>{user.email}</span>
+            <button type="button" onClick={handleLogout}>
+              로그아웃
+            </button>
+          </>
+        ) : (
+          <button className="login-button" type="button" onClick={() => onNavigate("/login")}>
+            로그인
           </button>
-        </div>
+        )}
       </header>
+
+      {!user && (
+        <div className="login-notice">
+          명단을 수정하려면 <button type="button" onClick={() => onNavigate("/login")}>로그인</button>이 필요합니다.
+        </div>
+      )}
 
       <section className="control-panel">
         <div className="control-row">
-          <button type="button" disabled={!user || isSaving} onClick={() => setIsFormOpen(true)}>
+          <button type="button" disabled={!user || isSaving} onClick={handleOpenForm}>
             아기 사자 추가
           </button>
           <button type="button" disabled={!user || isSaving || lions.length === 0} onClick={handleDeleteLast}>
-            최근 아기 사자 삭제
-          </button>
-          <button type="button" disabled={isLoading} onClick={onRefresh}>
-            새로고침
+            마지막 아기 사자 삭제
           </button>
           <span id="countText">총 {lions.length}명</span>
         </div>
 
         <div className="control-row">
+          <button type="button" disabled={!user || isSaving} onClick={() => handleRandomCreate(1)}>
+            랜덤 1명 추가
+          </button>
+          <button type="button" disabled={!user || isSaving} onClick={() => handleRandomCreate(5)}>
+            랜덤 5명 추가
+          </button>
+          <button type="button" disabled={isLoading || isSaving} onClick={onRefresh}>
+            전체 새로고침
+          </button>
           <span id="statusText">{status}</span>
-          {!user && <span className="message-text">추가/삭제는 로그인 후 사용할 수 있습니다.</span>}
-          {errorMessage && <span className="error-text">{errorMessage}</span>}
         </div>
 
         <div className="control-row filter-row">
@@ -159,7 +207,7 @@ function HomePage({
             value={sort}
             onChange={(event) => onUpdateViewOption("sort", event.target.value as SortMode)}
           >
-            <option value="latest">최신 추가순</option>
+            <option value="latest">최신추가순</option>
             <option value="asc">이름 오름차순</option>
             <option value="desc">이름 내림차순</option>
           </select>
@@ -173,6 +221,9 @@ function HomePage({
             onChange={(event) => onUpdateViewOption("search", event.target.value)}
           />
         </div>
+
+        {notice && <p className="toast-text">{notice}</p>}
+        {errorMessage && <p className="form-error">{errorMessage}</p>}
       </section>
 
       {isFormOpen && (
@@ -253,8 +304,6 @@ function HomePage({
           </form>
         </section>
       )}
-
-      <h2 className="section-title">아기 사자 카드 목록 영역</h2>
 
       <section className="summary-section">
         {isLoading ? (

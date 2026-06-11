@@ -21,6 +21,7 @@ function AuthForm({ isLoading, message, onLogin, onSignup, onSuccess }: AuthForm
   const isPasswordMatched = !isSignup || password === passwordConfirm;
   const isFormValid = email.includes("@") && isPasswordValid && isPasswordMatched;
   const visibleMessage = localMessage || message;
+  const isPositiveMessage = visibleMessage.includes("완료") || visibleMessage.includes("로그인되었습니다");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -92,9 +93,7 @@ function AuthForm({ isLoading, message, onLogin, onSignup, onSuccess }: AuthForm
         )}
 
         {visibleMessage && (
-          <p className={visibleMessage.includes("완료") || visibleMessage.includes("로그인되었습니다") ? "message-text" : "form-error"}>
-            {visibleMessage}
-          </p>
+          <p className={isPositiveMessage ? "message-text" : "form-error"}>{visibleMessage}</p>
         )}
 
         <button className="auth-submit" type="submit" disabled={!isFormValid || isLoading}>

@@ -130,10 +130,11 @@ function App() {
       status={lionsState.status}
       user={auth.user}
       viewOptions={viewOptions}
-        onCreate={lionsState.createLion}
-        onCreateRandom={lionsState.createRandomLions}
-        onDelete={lionsState.deleteLion}
+      onCreate={lionsState.createLion}
+      onCreateRandom={lionsState.createRandomLions}
+      onDelete={lionsState.deleteLion}
       onRefresh={lionsState.fetchLions}
+      onLogout={auth.signOut}
       onNavigate={navigate}
       onUpdateViewOption={updateViewOption}
     />

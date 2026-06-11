@@ -42,7 +42,7 @@ export function useAuth() {
       return false;
     }
 
-    setMessage("회원가입이 완료되었습니다. 이메일 확인 설정이 꺼져 있으면 바로 로그인됩니다.");
+    setMessage("회원가입이 완료되었습니다.");
     return true;
   };
 
@@ -55,7 +55,7 @@ export function useAuth() {
     setIsLoading(false);
 
     if (error) {
-      setMessage("이메일 또는 비밀번호를 확인해 주세요.");
+      setMessage(error.message);
       return false;
     }
 
